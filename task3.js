@@ -64,8 +64,8 @@ var simulate = function (sAtk, sDef) {
   }
 
   console.log([
-    'sAtk = ', sAtk,
-    ', sDef = ', sDef,
+    'sAtk = ', sAtk.toFixed(2),
+    ', sDef = ', sDef.toFixed(2),
     ', successful attack: ', successfulAttack,
     ', successful defense: ', successfulDefense
   ].join(''));
