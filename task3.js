@@ -63,24 +63,28 @@ var simulate = function (sAtk, sDef) {
     }
   }
 
+  /*
   console.log([
     'sAtk = ', sAtk.toFixed(2),
     ', sDef = ', sDef.toFixed(2),
     ', successful attack: ', successfulAttack,
     ', successful defense: ', successfulDefense
-  ].join(''));
+  ].join(''));*/
 
   return successfulDefense / N;
 };
 
 
-var perf = [];
+var perf = {};
 for (var i = 0; i < S.length; i++) {
   for (var j = 0; j < S.length; j++) {
-    perf.push(simulate(S[i], S[j]));
+    var p = perf[S[i]+'-'+S[j]] = [];
+    for (var k = 0; k < 1000; k++) {
+      p.push(simulate(S[i], S[j]));
+    }
+    p.sort();
   }
 }
-perf.sort();
 
 var avg = function (a) {
   return a.reduce(function (prev, current) {
@@ -88,7 +92,14 @@ var avg = function (a) {
   }, 0) / a.length;
 };
 
-console.log('min = ' + perf.shift().toFixed(3));
-console.log('avg = ' + avg(perf).toFixed(3));
-console.log('max = ' + perf.pop().toFixed(3));
+Object.keys(perf).forEach(function (key) {
+  var p = perf[key]
+  console.log([
+    'min = ', p.shift().toFixed(3),
+    ', avg = ', avg(p).toFixed(3),
+    ', max = ', p.pop().toFixed(3),
+    ', s = ', key,
+  ].join(''));
+})
+
 
