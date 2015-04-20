@@ -69,12 +69,26 @@ var simulate = function (sAtk, sDef) {
     ', successful attack: ', successfulAttack,
     ', successful defense: ', successfulDefense
   ].join(''));
+
+  return successfulDefense / N;
 };
 
 
+var perf = [];
 for (var i = 0; i < S.length; i++) {
   for (var j = 0; j < S.length; j++) {
-    simulate(S[i], S[j]);
+    perf.push(simulate(S[i], S[j]));
   }
 }
+perf.sort();
+
+var avg = function (a) {
+  return a.reduce(function (prev, current) {
+    return prev + current;
+  }, 0) / a.length;
+};
+
+console.log('min = ' + perf.shift().toFixed(3));
+console.log('avg = ' + avg(perf).toFixed(3));
+console.log('max = ' + perf.pop().toFixed(3));
 
