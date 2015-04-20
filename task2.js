@@ -22,23 +22,25 @@ var chooseVectors = function (n) {
   return a;
 };
 
-var intersect = function (a, b) {
-  return a.filter(function (i) {
-    return b.indexOf(i) != -1;
-  });
+var contains = function (a, b) {
+  for (var i = 0; i < a.length; i++) {
+    if (b.indexOf(a[i]) == -1) {
+      return false;
+    }
+  }
+  return true;
 };
-
 
 var successfulAttack = 0;
 var successfulDefense = 0;
 
-var xAtk = 1;
-var xDef = 50;
+var xAtk = 10;
+var xDef = 75;
 
 for (var i = 0; i < 100; i++) {
   var vAtk = chooseVectors(xAtk);
   var vDef = chooseVectors(xDef);
-  if (intersect(vAtk, vDef).length === 0) {
+  if (!contains(vAtk, vDef)) {
     successfulAttack++;
   } else {
     successfulDefense++;
