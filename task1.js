@@ -22,13 +22,13 @@ var payOffMatrix = function (attackCost) {
         //a[i][j] = {};
         a[i][j] = [
           -1 * attackCost * i,
-          -1 * attackCost * j,
+          -1 * defenseCost * j,
         ];
       // case I - successful attach
       } else {
         a[i][j] = [
           bAtk - attackCost * i,
-          (-1*bAtk) - attackCost * j,
+          (-1*bAtk) - defenseCost * j,
         ];
       }
     }
